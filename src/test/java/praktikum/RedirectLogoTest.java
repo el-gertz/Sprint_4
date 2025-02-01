@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import praktikum.pages.MainPage;
 import praktikum.pages.OrderPage;
 
-public class AdditionalTests {
+public class RedirectLogoTest {
     @Rule
     public DriverRule factory = new DriverRule();
 

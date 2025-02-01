@@ -12,12 +12,6 @@ public class MainPage {
 
     private final WebDriver driver;
 
-    //вопросы о важном - 1й вопрос
-    private final By questionFirst = By.id("accordion__heading-0");
-    private final By answerFirst = By.id("accordion__panel-0");
-    //вопросы о важном - 2й вопрос
-    private final By questionSecond = By.id("accordion__heading-1");
-    private final By answerSecond = By.id("accordion__panel-1");
     //куки-кнопка
     private final By cookiesSelector = By.id("rcc-confirm-button");
     //кнопка Заказать вверху страницы
@@ -61,18 +55,16 @@ public class MainPage {
         driver.findElement(selector).click();
     }
 
-    public String clickOnFirstQuestionAndGetText() {
-        return clickOnQuestionAndGetText(questionFirst, answerFirst);
+    public String clickOnQuestionAndGetText(String question) {
+        By questionSelector = By.xpath("//div[@class='accordion__button' and contains(text(), '" + question + "')]");
+        waitAndClick(questionSelector);
+        return driver.findElement(questionSelector).getText();
     }
 
-    public String clickOnSecondQuestionAndGetText() {
-        return clickOnQuestionAndGetText(questionSecond, answerSecond);
-    }
-
-    private String clickOnQuestionAndGetText(By question, By answer) {
-        waitAndClick(question);
-        waitForLoadElement(answer);
-        return driver.findElement(answer).getText();
+    public String findAnswerAndGetText(String answer) {
+        By answerSelector = By.xpath("//p[contains(text(),'" + answer + "')]");
+        waitForLoadElement(answerSelector);
+        return driver.findElement(answerSelector).getText();
     }
 
     public void clickCookie() {

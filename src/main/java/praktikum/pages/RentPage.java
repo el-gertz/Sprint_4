@@ -17,19 +17,19 @@ public class RentPage extends MainPage {
     //поле Срок аренды
     private final By periodOfRent = By.className("Dropdown-placeholder");
     //значение Двое суток для поля Срок аренды
-    private final By periodDvoeSytok = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[2]");
+    private final By periodDvoeSytok = By.xpath("//div[@class='Dropdown-option' and contains(text(),'двое суток')]");
     //поле Комментарий для курьера
     private final By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //кнопка Заказать
     private final By submitOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //кнопка Да в модальном окне Хотите оформить заказ?
-    private final By okForOrder = By.xpath(".//*[@id='root']/div/div[2]/div[5]/div[2]/button[2]");
+    private final By okForOrder = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and contains(text(),'Да')]");
     //локатор модального окна Хотите оформить заказ?
-    private final By modalOrder = By.xpath(".//div/div/div[2]/div[5]");
+    private final By modalOrder = By.xpath("//div[contains(text(), 'Хотите оформить заказ?')]");
     //локатор модального окна Заказ оформлен
-    private final By modalOrderSuccess = By.xpath(".//div/div/div[2]/div[5]");
+    private final By modalOrderSuccess = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and contains(text(),'Заказ оформлен')]");
 
-    public void fillRentFields(String dateString, String colorString, String commetString) {
+    public Boolean fillRentFields(String dateString, String colorString, String commetString) {
         driver.findElement(dateDelivery).sendKeys(dateString);
         driver.findElement(dateDelivery).sendKeys(Keys.RETURN);
         driver.findElement(periodOfRent).click();
@@ -42,7 +42,7 @@ public class RentPage extends MainPage {
         driver.findElement(modalOrder).isDisplayed();
         driver.findElement(okForOrder).click();
         waitForLoadElement(modalOrderSuccess);
-        driver.findElement(modalOrderSuccess).isDisplayed();
+        return driver.findElement(modalOrderSuccess).isDisplayed();
     }
 
 

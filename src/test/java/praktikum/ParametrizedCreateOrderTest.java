@@ -1,5 +1,6 @@
 package praktikum;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +59,9 @@ public class ParametrizedCreateOrderTest {
         OrderPage orderPage = page.clickOrderButtonUp();
 
         orderPage.fillClientFields(name, surname, address, telefone);
+        //Возвращает isDisplayed окна "Заказ оформлен"
         RentPage rentPage = orderPage.clickNextButton();
-        rentPage.fillRentFields(date, color, comment);
+        Assert.assertTrue("Ожидалось окно подтверждения заказа", rentPage.fillRentFields(date, color, comment));
     }
 
 }
